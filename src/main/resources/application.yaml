@@ -1,0 +1,35 @@
+server:
+  port: ${APPLICATION_PORT:8081}
+  shutdown: graceful
+  compression:
+    enabled: true
+spring:
+  profiles:
+    active: ${APPLICATION_ENVIRONMENT:dev}
+  liquibase:
+    change-log: classpath:/db/changelog/changelog-master.xml
+  application:
+    name: zaptest
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5433}/${DB_NAME:zaptesting}?useSSL=${USE_SSL}
+    username: ${DB_USER_NAME:root}
+    password: ${DB_PASSWORD:smart}
+    initialization-mode: always
+    hikari:
+      maximumPoolSize: ${DB_POOL_SIZE:10}
+  jpa:
+    show-sql: false
+
+## only needed if you want to enable API doc
+springdoc:
+  swagger-ui:
+    disable-swagger-default-url: true
+    path: /ui/swagger-ui
+    show-common-extensions: true
+    csrf:
+      enabled: true
+  api-docs:
+    path: /docs/api-docs
+
+security:
+  apiKey: quaele2lu3Eiz7fehi5veiy2geixeeth
